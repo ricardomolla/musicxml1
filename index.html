@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor MusicXML</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/opensheetmusicdisplay/1.2.0/opensheetmusicdisplay.min.js"></script>
+</head>
+<body>
+    <input type="file" id="musicxml-input" accept=".xml"/>
+    <div id="sheet"></div>
+
+    <script>
+        const osmd = new opensheetmusicdisplay.OpenSheetMusicDisplay(document.getElementById('sheet'));
+
+        document.getElementById('musicxml-input').addEventListener('change', function(event){
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    osmd.load(e.target.result);
+                    osmd.render();
+                };
+                reader.readAsText(file);
+            }
+        });
+    </script>
+</body>
+</html>
